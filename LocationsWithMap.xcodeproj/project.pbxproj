@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		43267DB21C22C5C30055E391 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43267DA51C22C5B70055E391 /* SwiftyJSON.framework */; };
 		439DC25C1C20E614004E3235 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 439DC25B1C20E614004E3235 /* DetailView.swift */; };
+		43BFC5971C24BBD0002BBDEC /* com.fredd.starmap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43BFC5961C24BBD0002BBDEC /* com.fredd.starmap.plist */; };
 		43E35B941C1C8EEA00964F33 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E35B931C1C8EEA00964F33 /* AppDelegate.swift */; };
 		43E35B961C1C8EEA00964F33 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E35B951C1C8EEA00964F33 /* ViewController.swift */; };
 		43E35B991C1C8EEA00964F33 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43E35B971C1C8EEA00964F33 /* Main.storyboard */; };
 		43E35B9B1C1C8EEA00964F33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 43E35B9A1C1C8EEA00964F33 /* Assets.xcassets */; };
 		43E35B9E1C1C8EEA00964F33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 43E35B9C1C1C8EEA00964F33 /* LaunchScreen.storyboard */; };
-		43E35BA61C1C8EFF00964F33 /* com.fredd.starmap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 43E35BA51C1C8EFF00964F33 /* com.fredd.starmap.plist */; };
 		43E35BA81C1C8F3200964F33 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E35BA71C1C8F3200964F33 /* Place.swift */; };
 		43E35BAA1C1C907C00964F33 /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E35BA91C1C907C00964F33 /* Pin.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +74,7 @@
 /* Begin PBXFileReference section */
 		43267D9A1C22C5B70055E391 /* SwiftyJSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftyJSON.xcodeproj; path = "SwiftyJSON-master/SwiftyJSON.xcodeproj"; sourceTree = "<group>"; };
 		439DC25B1C20E614004E3235 /* DetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		43BFC5961C24BBD0002BBDEC /* com.fredd.starmap.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = com.fredd.starmap.plist; sourceTree = "<group>"; };
 		43E35B901C1C8EEA00964F33 /* LocationsWithMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocationsWithMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		43E35B931C1C8EEA00964F33 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		43E35B951C1C8EEA00964F33 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -81,7 +82,6 @@
 		43E35B9A1C1C8EEA00964F33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		43E35B9D1C1C8EEA00964F33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		43E35B9F1C1C8EEA00964F33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		43E35BA51C1C8EFF00964F33 /* com.fredd.starmap.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = com.fredd.starmap.plist; path = ../LocationsWithTableView/com.fredd.starmap.plist; sourceTree = "<group>"; };
 		43E35BA71C1C8F3200964F33 /* Place.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		43E35BA91C1C907C00964F33 /* Pin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,8 +115,8 @@
 		43E35B871C1C8EEA00964F33 = {
 			isa = PBXGroup;
 			children = (
+				43BFC5961C24BBD0002BBDEC /* com.fredd.starmap.plist */,
 				43267D9A1C22C5B70055E391 /* SwiftyJSON.xcodeproj */,
-				43E35BA51C1C8EFF00964F33 /* com.fredd.starmap.plist */,
 				43E35B921C1C8EEA00964F33 /* LocationsWithMap */,
 				43E35B911C1C8EEA00964F33 /* Products */,
 			);
@@ -263,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				43E35B9E1C1C8EEA00964F33 /* LaunchScreen.storyboard in Resources */,
-				43E35BA61C1C8EFF00964F33 /* com.fredd.starmap.plist in Resources */,
+				43BFC5971C24BBD0002BBDEC /* com.fredd.starmap.plist in Resources */,
 				43E35B9B1C1C8EEA00964F33 /* Assets.xcassets in Resources */,
 				43E35B991C1C8EEA00964F33 /* Main.storyboard in Resources */,
 			);

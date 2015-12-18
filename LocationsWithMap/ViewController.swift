@@ -8,24 +8,25 @@
 
 import UIKit
 import MapKit
+import SwiftyJSON
 
 class ViewController: UIViewController, MKMapViewDelegate {
     
-//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-//    }
-//
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    //    }
+    //
+    //    required init?(coder aDecoder: NSCoder) {
+    //        super.init(coder: aDecoder)
+    //    }
     
     
     // 🔵 properties
-
+    
     var location:[Place] = []
     var mapView: MKMapView!
-
-
+    var btnSaveAll: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +41,28 @@ class ViewController: UIViewController, MKMapViewDelegate {
             let myPin = pinFromPlace(myPlace)
             mapView.addAnnotation(myPin)
         }
+        
+        btnSaveAll = {
+            let v = UIButton()
+            v.translatesAutoresizingMaskIntoConstraints = false
+            v.setTitle("Save All Pins", forState: .Normal)
+            v.backgroundColor = UIColor.blueColor()
+            return v
+            }()
+        
+        // 🔵 view hierarchy
+        
+        view.addSubview(btnSaveAll)
+        
+        // 🔵 auto layout
+        
+        view.addConstraint(NSLayoutConstraint(item: btnSaveAll, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0))
+        view.addConstraint(NSLayoutConstraint(item: view, attribute: .Right, relatedBy: .Equal, toItem: btnSaveAll, attribute: .Right, multiplier: 1, constant: 0))
+        
+        // 🔵 target
+        
+        btnSaveAll.addTarget(self, action: "saveAllPins:", forControlEvents: .TouchUpInside)
+        
     }
     
     // 🔵 helper
@@ -62,7 +85,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 let btn = UIButton(type: .DetailDisclosure)
                 let place = Place(name: annotation.title!!, lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude)
                 print(place)
-
+                
                 annotationView.rightCalloutAccessoryView = btn
                 
                 btn.addTarget(self, action: "detailViewAction:", forControlEvents: .TouchUpInside)
@@ -73,13 +96,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return nil
     }
     
-
     
-//    func U
+    
+    //    func U
     func detailViewAction(sender: UIButton) {
         if let pin = mapView.selectedAnnotations.first as?  Pin {
             let dvc = DetailViewController()
-
+            
             let name = pin.title
             let lat = pin.coordinate.latitude
             let lng = pin.coordinate.longitude
@@ -88,17 +111,29 @@ class ViewController: UIViewController, MKMapViewDelegate {
             
             print("detailviewaction \(dvc.location!)")
             
-           // print(self.dvc.location!)
+            // print(self.dvc.location!)
             
             presentViewController(dvc, animated: true, completion: {
-             //   print("111\(self.dvc.location!)")
+                //   print("111\(self.dvc.location!)")
                 
             })
         }
         
     }
     
-    
+    func saveAllPins(sender: UIButton) {
+        for element in location{
+            //            let myPlace = Place(name: element.name, lat: element.latitude, lng: element.longitude)
+            //            let myPin = pinFromPlace(myPlace)
+            let path = "/Users/daria/\(element.name).json"
+            let place: [String : AnyObject] = ["name" :element.name, "latitude": Double(element.latitude), "longitude": Double(element.longitude)]
+            let json = JSON(place)
+            let str = json.description
+            let data = str.dataUsingEncoding(NSUTF8StringEncoding)!
+            data.writeToFile(path, atomically: true)
+            
+        }
+    }
     
 }
 

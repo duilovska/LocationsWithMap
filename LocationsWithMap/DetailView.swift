@@ -72,7 +72,7 @@ class DetailViewController: UIViewController {
             }()
         
         // --------------------------------------------------------------------------------
-        // view hierarchy
+        //  🔵 view hierarchy
         // --------------------------------------------------------------------------------
         
         view.addSubview(lblName)
@@ -81,9 +81,8 @@ class DetailViewController: UIViewController {
         view.addSubview(btnBack)
         view.addSubview(btnSave)
         
-        
         // --------------------------------------------------------------------------------
-        // auto layout
+        // 🔵 auto layout
         // --------------------------------------------------------------------------------
         
         view.addConstraint(NSLayoutConstraint(item: lblName, attribute: .CenterX, relatedBy: .Equal, toItem: view, attribute: .CenterX, multiplier: 1, constant: 0))
@@ -100,9 +99,9 @@ class DetailViewController: UIViewController {
         
         view.addConstraint(NSLayoutConstraint(item: btnSave, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1, constant: 10))
         view.addConstraint(NSLayoutConstraint(item: btnSave, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1, constant: 20))
-       
+        
         //---------------------------------------------------------------------------------
-        //target
+        // 🔵 target
         //---------------------------------------------------------------------------------
         
         btnBack.addTarget(self, action: "btnPressed:", forControlEvents: .TouchUpInside)
@@ -118,27 +117,14 @@ class DetailViewController: UIViewController {
     }
     
     func saveToFile(sender: UIButton) {
-//        let txt = NSString(string: lblName.text!)
         let path = "/Users/daria/\(lblName.text!).json"
-//        let path = "Desktop/Swift_Apprentice_v1.1.pdf"
-      
         let place: [String : AnyObject] = ["name" :lblName.text!, "latitude": Double(lblLat.text!)!, "longitude": Double(lblLng.text!)!]
         let json = JSON(place)
         let str = json.description
         let data = str.dataUsingEncoding(NSUTF8StringEncoding)!
-
-        data.writeToFile(path, atomically: true)
-//        if let file = NSFileHandle(forWritingAtPath:path) {
-//            file.writeData(data)
-//        } else {
-//            print("geht nicht")
-//        }
         
-//        do {
-//            try txt.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding)
-//        } catch {
-//            // failed to write file – bad permissions, bad filename, missing permissions, or more likely it can't be converted to the encoding
-//        }
+        data.writeToFile(path, atomically: true)
+        
     }
     
 }
