@@ -98,7 +98,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     
     
-    //    func U
+    //    func
     func detailViewAction(sender: UIButton) {
         if let pin = mapView.selectedAnnotations.first as?  Pin {
             let dvc = DetailViewController()
@@ -108,11 +108,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             let lng = pin.coordinate.longitude
             let loc = Place(name: name!, lat: lat, lng: lng)
             dvc.location = loc
-            
             print("detailviewaction \(dvc.location!)")
-            
-            // print(self.dvc.location!)
-            
             presentViewController(dvc, animated: true, completion: {
                 //   print("111\(self.dvc.location!)")
                 
@@ -123,9 +119,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     func saveAllPins(sender: UIButton) {
         for element in location{
-            //            let myPlace = Place(name: element.name, lat: element.latitude, lng: element.longitude)
-            //            let myPin = pinFromPlace(myPlace)
-            let path = "/Users/daria/\(element.name).json"
+            let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            let fileName = element.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+//            let fileName1 = fileName.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
+            let path = "\(dirPaths.first)/locations/\(fileName).json"
+            print(fileName)
             let place: [String : AnyObject] = ["name" :element.name, "latitude": Double(element.latitude), "longitude": Double(element.longitude)]
             let json = JSON(place)
             let str = json.description
