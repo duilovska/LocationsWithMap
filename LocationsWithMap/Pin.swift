@@ -12,46 +12,34 @@ import MapKit
 
 
 class Pin : NSObject, MKAnnotation {
-    var place: Place?
+    var place: Place
 	
     //🔵 init
 	
 	init(place:Place) {
 		self.place = place
-		_coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
-		_title = place.name
-		_subtitle = ""
 	}
 	
     // 🔵 protocol MKAnnotation
     
-    var _coordinate:CLLocationCoordinate2D
     var coordinate:CLLocationCoordinate2D {
-        get {
-            return _coordinate
-        }
+		get {
+			return CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+		}
     }
-    
-    func setCoordinate(newCoordinate: CLLocationCoordinate2D) {
-        _coordinate = newCoordinate
-    }
-    
+	
     // 🔵 protocol Printable
     
     override var description: String {
         return "<SimpleAnnotation: \(coordinate)>"
     }
     
-    var _subtitle:String?
     var subtitle:String? {
-        return _subtitle ?? ""
+        return ""
     }
     
-    var _title:String?
     var title:String? {
-        return _title ?? "Simple"
+        return place.name
     }
-    
-
 
 }
