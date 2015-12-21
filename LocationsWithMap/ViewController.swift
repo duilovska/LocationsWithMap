@@ -122,6 +122,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
         print("!")
         print(NSUserName())
 
+		let hostHome = NSProcessInfo.processInfo().environment["SIMULATOR_HOST_HOME"]!
+		let basePath = (hostHome as NSString).stringByAppendingPathComponent("/Documents/locations/")
+		try! NSFileManager.defaultManager().createDirectoryAtPath(basePath, withIntermediateDirectories: true, attributes: nil)
+		
         for element in location{
 //            let dirPaths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)
             let fileNameWithoutWhiteSpaces = element.name.stringByReplacingOccurrencesOfString(" ", withString: "")
@@ -130,7 +134,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
 //            print(dirPaths)
 //            let folder = dirPaths[0] as NSString
 //            let path = folder.stringByAppendingPathComponent("myfile.txt")
-            let path = "Users/daria/Documents/locations/\(fileName).json"
+			let hostHome = NSProcessInfo.processInfo().environment["SIMULATOR_HOST_HOME"]!
+            let path = hostHome + "/Documents/locations/\(fileName).json"
             let place: [String : AnyObject] = ["name" :element.name, "latitude": Double(element.latitude), "longitude": Double(element.longitude)]
             let json = JSON(place)
             let str = json.description
