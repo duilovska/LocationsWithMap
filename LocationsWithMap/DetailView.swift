@@ -117,7 +117,11 @@ class DetailViewController: UIViewController {
     }
     
     func saveToFile(sender: UIButton) {
-        let path = "/Users/daria/\(lblName.text!).json"
+        let name = lblName.text!
+        let fileNameWithoutWhiteSpaces = name.stringByReplacingOccurrencesOfString(" ", withString: "")
+        let fileName1 = fileNameWithoutWhiteSpaces.stringByReplacingOccurrencesOfString(")", withString: "")
+        let fileName = fileName1.stringByReplacingOccurrencesOfString("Auto(", withString: "")
+        let path = "/Users/daria/Documents/locations/\(fileName).json"
         let place: [String : AnyObject] = ["name" :lblName.text!, "latitude": Double(lblLat.text!)!, "longitude": Double(lblLng.text!)!]
         let json = JSON(place)
         let str = json.description

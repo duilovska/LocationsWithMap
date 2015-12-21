@@ -45,8 +45,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
         btnSaveAll = {
             let v = UIButton()
             v.translatesAutoresizingMaskIntoConstraints = false
-            v.setTitle("Save All Pins", forState: .Normal)
-            v.backgroundColor = UIColor.blueColor()
+            v.setTitle(" Save all pins ", forState: .Normal)
+            v.setTitleColor(UIColor.blackColor(), forState: .Normal)
+            v.setTitleColor(UIColor.whiteColor(), forState: .Highlighted)
+            v.backgroundColor = UIColor.lightGrayColor()
+            
             return v
             }()
         
@@ -62,6 +65,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         // 🔵 target
         
         btnSaveAll.addTarget(self, action: "saveAllPins:", forControlEvents: .TouchUpInside)
+//        btnSaveAll.addTarget(self, action: "\(String(NSUserName())):", forControlEvents: .TouchUpInside)
+
         
     }
     
@@ -83,11 +88,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 annotationView.enabled = true
                 annotationView.canShowCallout = true
                 let btn = UIButton(type: .DetailDisclosure)
-                let place = Place(name: annotation.title!!, lat: annotation.coordinate.latitude, lng: annotation.coordinate.longitude)
-                print(place)
-                
                 annotationView.rightCalloutAccessoryView = btn
-                
                 btn.addTarget(self, action: "detailViewAction:", forControlEvents: .TouchUpInside)
                 return annotationView
             }
@@ -108,7 +109,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             let lng = pin.coordinate.longitude
             let loc = Place(name: name!, lat: lat, lng: lng)
             dvc.location = loc
-            print("detailviewaction \(dvc.location!)")
+//            print("detailviewaction \(dvc.location!)")
             presentViewController(dvc, animated: true, completion: {
                 //   print("111\(self.dvc.location!)")
                 
@@ -118,12 +119,18 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     func saveAllPins(sender: UIButton) {
+        print("!")
+        print(NSUserName())
+
         for element in location{
-            let dirPaths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-            let fileName = element.name.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-//            let fileName1 = fileName.stringByTrimmingCharactersInSet(NSCharacterSet.punctuationCharacterSet())
-            let path = "\(dirPaths.first)/locations/\(fileName).json"
-            print(fileName)
+//            let dirPaths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+            let fileNameWithoutWhiteSpaces = element.name.stringByReplacingOccurrencesOfString(" ", withString: "")
+            let fileName1 = fileNameWithoutWhiteSpaces.stringByReplacingOccurrencesOfString(")", withString: "")
+            let fileName = fileName1.stringByReplacingOccurrencesOfString("Auto(", withString: "")
+//            print(dirPaths)
+//            let folder = dirPaths[0] as NSString
+//            let path = folder.stringByAppendingPathComponent("myfile.txt")
+            let path = "Users/daria/Documents/locations/\(fileName).json"
             let place: [String : AnyObject] = ["name" :element.name, "latitude": Double(element.latitude), "longitude": Double(element.longitude)]
             let json = JSON(place)
             let str = json.description
