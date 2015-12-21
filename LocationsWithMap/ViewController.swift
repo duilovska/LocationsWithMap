@@ -38,7 +38,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         mapView.delegate = self
         for element in location{
             let myPlace = Place(name: element.name, lat: element.latitude, lng: element.longitude)
-            let myPin = pinFromPlace(myPlace)
+            let myPin = Pin(place: myPlace)
             mapView.addAnnotation(myPin)
         }
         
@@ -70,11 +70,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    // 🔵 helper
-    
-    func pinFromPlace(place:Place) -> Pin {
-        return Pin(coordinate: CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude), title: place.name, subtitle: "")
-    }
+    // 🔵 mapview delegate
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "Pin"
@@ -104,11 +100,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if let pin = mapView.selectedAnnotations.first as?  Pin {
             let dvc = DetailViewController()
             
-            let name = pin.title
-            let lat = pin.coordinate.latitude
-            let lng = pin.coordinate.longitude
-            let loc = Place(name: name!, lat: lat, lng: lng)
-            dvc.location = loc
+            dvc.location = pin.place!
 //            print("detailviewaction \(dvc.location!)")
             presentViewController(dvc, animated: true, completion: {
                 //   print("111\(self.dvc.location!)")

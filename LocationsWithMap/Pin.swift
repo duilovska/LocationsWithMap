@@ -12,15 +12,17 @@ import MapKit
 
 
 class Pin : NSObject, MKAnnotation {
-//    var place: Place?
+    var place: Place?
+	
     //🔵 init
-    
-    init(coordinate:CLLocationCoordinate2D, title:String? = nil, subtitle:String? = nil) {
-        _coordinate = coordinate
-        _title = title
-        _subtitle = subtitle
-    }
-    
+	
+	init(place:Place) {
+		self.place = place
+		_coordinate = CLLocationCoordinate2D(latitude: place.latitude, longitude: place.longitude)
+		_title = place.name
+		_subtitle = ""
+	}
+	
     // 🔵 protocol MKAnnotation
     
     var _coordinate:CLLocationCoordinate2D
