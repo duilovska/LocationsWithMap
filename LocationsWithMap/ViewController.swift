@@ -110,32 +110,34 @@ class ViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    func saveAllPins(sender: UIButton) {
-        print("!")
-        print(NSUserName())
-
+	func saveAllPins(sender: UIButton) {
 		let hostHome = NSProcessInfo.processInfo().environment["SIMULATOR_HOST_HOME"]!
 		let basePath = (hostHome as NSString).stringByAppendingPathComponent("/Documents/locations/")
 		try! NSFileManager.defaultManager().createDirectoryAtPath(basePath, withIntermediateDirectories: true, attributes: nil)
 		
-        for element in location{
-//            let dirPaths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)
-            let fileNameWithoutWhiteSpaces = element.name.stringByReplacingOccurrencesOfString(" ", withString: "")
-            let fileName1 = fileNameWithoutWhiteSpaces.stringByReplacingOccurrencesOfString(")", withString: "")
-            let fileName = fileName1.stringByReplacingOccurrencesOfString("Auto(", withString: "")
-//            print(dirPaths)
-//            let folder = dirPaths[0] as NSString
-//            let path = folder.stringByAppendingPathComponent("myfile.txt")
+		for element in location{
+			//            let dirPaths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DesktopDirectory, NSSearchPathDomainMask.UserDomainMask, true)
+			//            let fileNameWithoutWhiteSpaces = element.name.stringByReplacingOccurrencesOfString(" ", withString: "")
+			//            let fileName1 = fileNameWithoutWhiteSpaces.stringByReplacingOccurrencesOfString(")", withString: "")
+			let uuidString = NSUUID().UUIDString
+			let fileName = uuidString //fileName1.stringByReplacingOccurrencesOfString("Auto(", withString: "")
+			//            print(dirPaths)
+			//            let folder = dirPaths[0] as NSString
+			//            let path = folder.stringByAppendingPathComponent("myfile.txt")
 			let hostHome = NSProcessInfo.processInfo().environment["SIMULATOR_HOST_HOME"]!
-            let path = hostHome + "/Documents/locations/\(fileName).json"
-            let place: [String : AnyObject] = ["name" :element.name, "latitude": Double(element.latitude), "longitude": Double(element.longitude)]
-            let json = JSON(place)
-            let str = json.description
-            let data = str.dataUsingEncoding(NSUTF8StringEncoding)!
-            data.writeToFile(path, atomically: true)
-            
-        }
-    }
-    
+			let path:String = hostHome + "/Documents/locations/" + String(fileName.characters[fileName.startIndex]) + "/"
+			let fullPath = path + "\(fileName).json"
+			
+			let place: [String : AnyObject] = ["name" :element.name, "coordinates": "\(Double(element.latitude)),\(Double(element.longitude))", "uuid": uuidString]
+			let json = JSON(place)
+			let str = json.description
+			let data = str.dataUsingEncoding(NSUTF8StringEncoding)!
+			let _ = try? NSFileManager.defaultManager().createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+			
+			data.writeToFile(fullPath, atomically: true)
+			
+		}
+	}
+	
 }
 
