@@ -100,7 +100,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if let pin = mapView.selectedAnnotations.first as?  Pin {
             let dvc = DetailViewController()
             
-            dvc.location = pin.place!
+            dvc.location = pin.place
 //            print("detailviewaction \(dvc.location!)")
             presentViewController(dvc, animated: true, completion: {
                 //   print("111\(self.dvc.location!)")
